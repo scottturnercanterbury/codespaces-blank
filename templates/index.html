@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Payroll System</title></head>
+<body>
+    <h1>Employee Payroll List</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Pay ($)</th>
+        </tr>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.pay }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/add">Add New Employee</a>
+    <a href="/delete">Delete employee</a>
+</body>
+</html>
