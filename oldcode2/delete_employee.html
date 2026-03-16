@@ -4,9 +4,10 @@
 <body>
     <h1>Delete Employee</h1>
     <p>Enter the ID of the employee you wish to remove from the payroll.</p>
-    <form action="/delete" method="post">
-        Employee ID: <input type="number" name="id" required>
-        <button type="submit" style="color: red;">Delete Permanently</button>
+    <form method="post" action="/delete">
+        <label>Employee ID to delete:</label>
+        <input type="number" name="emp_id" required>
+        <button type="submit">Delete</button>
     </form>
     <br>
     <a href="/">Back to Payroll List</a>

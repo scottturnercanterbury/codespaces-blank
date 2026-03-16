@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, Form, Depends
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import create_all, Column, Integer, String, create_engine
+from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 
@@ -50,10 +50,16 @@ async def add_employee(id: int = Form(...), name: str = Form(...), pay: int = Fo
     db.commit()
     return RedirectResponse(url="/", status_code=303)
 
-@app.get("/delete/{emp_id}")
-async def delete_employee(emp_id: int, db: Session = Depends(get_db)):
+@app.post("/delete")
+async def delete_employee(emp_id: int = Form(...), db: Session = Depends(get_db)):
     emp = db.query(EmployeeDB).filter(EmployeeDB.id == emp_id).first()
+ 
     if emp:
         db.delete(emp)
         db.commit()
+ 
     return RedirectResponse(url="/", status_code=303)
+
+@app.get("/delete", response_class=HTMLResponse)
+async def delete_page(request: Request):
+    return templates.TemplateResponse("delete_employee.html", {"request": request})
